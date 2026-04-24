@@ -2,8 +2,38 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
+interface Portfolio {
+  id: number;
+  judul: string;
+  kategori: string;
+  lokasi: string;
+  foto_url: string;
+}
+
+interface Testimoni {
+  id: number;
+  nama: string;
+  lokasi: string;
+  isi: string;
+  rating: number;
+}
+
+interface Settings {
+  whatsapp?: string;
+  email?: string;
+  alamat?: string;
+  instagram?: string;
+  facebook?: string;
+  jam_operasional?: string;
+}
+
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
+  const [testimonis, setTestimonis] = useState<Testimoni[]>([]);
+  const [settings, setSettings] = useState<Settings>({});
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -11,7 +41,24 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const waLink = "https://wa.me/628XXXXXXXXX";
+  useEffect(() => {
+    fetch(`${apiUrl}/portfolios`)
+      .then(res => res.json())
+      .then(data => setPortfolios(data))
+      .catch(err => console.log(err));
+
+    fetch(`${apiUrl}/testimonis`)
+      .then(res => res.json())
+      .then(data => setTestimonis(data))
+      .catch(err => console.log(err));
+
+    fetch(`${apiUrl}/settings`)
+      .then(res => res.json())
+      .then(data => setSettings(data))
+      .catch(err => console.log(err));
+  }, [apiUrl]);
+
+  const waLink = `https://wa.me/${settings.whatsapp || "628XXXXXXXXX"}`;
 
   const layanan = [
     { num: "1 / 4", title: "Desain Interior", desc: "Perencanaan dan konsep ruangan yang disesuaikan dengan selera, kebutuhan, dan budget kamu dari awal hingga akhir." },
@@ -31,19 +78,6 @@ export default function Home() {
     { num: "200+", label: "Proyek Selesai" },
     { num: "5+", label: "Tahun Pengalaman" },
     { num: "98%", label: "Klien Puas" },
-  ];
-
-  const portfolio = [
-    { label: "PLAFON PVC", name: "Rumah Pak Budi – Surabaya Barat", tall: true },
-    { label: "WALLPANEL", name: "Apartemen Bu Rina – Sidoarjo", tall: false },
-    { label: "GORDEN", name: "Rumah Bu Dewi – Surabaya Timur", tall: false },
-    { label: "DESAIN INTERIOR", name: "Kantor PT. Maju – Surabaya Pusat", tall: false },
-  ];
-
-  const testimoni = [
-    { initials: "AS", name: "Ahmad S.", loc: "Surabaya Barat", text: "Hasil plafon dan wallpanel dari Kalatmaka benar-benar melebihi ekspektasi. Pengerjaannya sangat rapi, bersih, dan tepat waktu." },
-    { initials: "RL", name: "Rina L.", loc: "Sidoarjo", text: "Gordennya bagus sekali, sesuai dengan konsep ruangan yang kami inginkan. Pelayanannya ramah dan sangat responsif." },
-    { initials: "DW", name: "Dewi W.", loc: "Surabaya Timur", text: "Desain interior rumah kami jadi jauh lebih cantik. Tim Kalatmaka sangat profesional dan memahami keinginan klien." },
   ];
 
   return (
@@ -193,17 +227,19 @@ export default function Home() {
           <a href="#" style={{ border: "1px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.7)", fontSize: 12, padding: "10px 22px", borderRadius: 100, textDecoration: "none" }}>Lihat Semua →</a>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
-          {portfolio.map((item, i) => (
-            <div key={i} className="porto-card" style={{ position: "relative", borderRadius: 12, overflow: "hidden", aspectRatio: item.tall ? "auto" : "4/3", minHeight: item.tall ? 400 : 200, background: "#132f5a", cursor: "pointer", gridRow: item.tall ? "span 2" : "auto" }}>
-              <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", minHeight: 200 }}>
-                <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 12 }}>Foto Proyek</span>
-              </div>
-              <div style={{ position: "absolute", top: 12, left: 12, background: "rgba(7,26,56,0.8)", color: "rgba(255,255,255,0.8)", fontSize: 10, padding: "5px 12px", borderRadius: 100 }}>{item.label}</div>
+          {portfolios.length > 0 ? portfolios.map((item, i) => (
+            <div key={item.id} className="porto-card" style={{ position: "relative", borderRadius: 12, overflow: "hidden", aspectRatio: i === 0 ? "auto" : "4/3", minHeight: i === 0 ? 400 : 200, background: "#132f5a", cursor: "pointer", gridRow: i === 0 ? "span 2" : "auto" }}>
+              <Image src={item.foto_url} alt={item.judul} fill style={{ objectFit: "cover" }} unoptimized />
+              <div style={{ position: "absolute", top: 12, left: 12, background: "rgba(7,26,56,0.8)", color: "rgba(255,255,255,0.8)", fontSize: 10, padding: "5px 12px", borderRadius: 100 }}>{item.kategori}</div>
               <div className="porto-overlay" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(7,26,56,0.9) 0%, transparent 50%)", opacity: 0, transition: "opacity 0.3s", display: "flex", alignItems: "flex-end", padding: 20 }}>
-                <span style={{ fontSize: 14, fontWeight: 500 }}>{item.name}</span>
+                <span style={{ fontSize: 14, fontWeight: 500 }}>{item.judul} – {item.lokasi}</span>
               </div>
             </div>
-          ))}
+          )) : (
+            <div style={{ gridColumn: "span 2", textAlign: "center", color: "rgba(255,255,255,0.3)", padding: 40 }}>
+              Belum ada portofolio
+            </div>
+          )}
         </div>
       </section>
 
@@ -217,21 +253,29 @@ export default function Home() {
           Apa Kata <em style={{ color: "#f5c518" }}>Klien</em> Kami
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-          {testimoni.map((item, i) => (
-            <div key={i} style={{ background: "#0f2d56", borderRadius: 16, padding: 28, border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div style={{ color: "#f5c518", fontSize: 14, letterSpacing: 2, marginBottom: 16 }}>★★★★★</div>
+          {testimonis.length > 0 ? testimonis.map((item) => (
+            <div key={item.id} style={{ background: "#0f2d56", borderRadius: 16, padding: 28, border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div style={{ color: "#f5c518", fontSize: 14, letterSpacing: 2, marginBottom: 16 }}>
+                {"★".repeat(item.rating)}
+              </div>
               <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, marginBottom: 20, fontStyle: "italic" }}>
-                &ldquo;{item.text}&rdquo;
+                &ldquo;{item.isi}&rdquo;
               </p>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#132f5a", border: "1px solid rgba(245,197,24,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 500, color: "#f5c518" }}>{item.initials}</div>
+                <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#132f5a", border: "1px solid rgba(245,197,24,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 500, color: "#f5c518" }}>
+                  {item.nama.charAt(0).toUpperCase()}
+                </div>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 500 }}>{item.name}</div>
-                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>{item.loc}</div>
+                  <div style={{ fontSize: 14, fontWeight: 500 }}>{item.nama}</div>
+                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>{item.lokasi}</div>
                 </div>
               </div>
             </div>
-          ))}
+          )) : (
+            <div style={{ gridColumn: "span 3", textAlign: "center", color: "rgba(255,255,255,0.3)", padding: 40 }}>
+              Belum ada testimoni
+            </div>
+          )}
         </div>
       </section>
 
@@ -290,14 +334,13 @@ export default function Home() {
           <div>
             <h4 style={{ fontSize: 11, letterSpacing: 2, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", marginBottom: 20, fontWeight: 500 }}>Kontak</h4>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
-              {["+62 8XX-XXXX-XXXX", "info@kalatmaka.com", "Surabaya, Jawa Timur"].map(item => (
-                <span key={item} style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>{item}</span>
-              ))}
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>{settings.whatsapp || "+62 8XX-XXXX-XXXX"}</span>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>{settings.email || "info@kalatmaka.com"}</span>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>{settings.alamat || "Surabaya, Jawa Timur"}</span>
             </div>
             <h4 style={{ fontSize: 11, letterSpacing: 2, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", marginBottom: 12, fontWeight: 500 }}>Jam Operasional</h4>
             <div style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", lineHeight: 1.8 }}>
-              Senin – Jumat: 08.00 – 17.00<br />
-              Sabtu: 08.00 – 14.00
+              {settings.jam_operasional || "Senin – Jumat: 08.00 – 17.00"}
             </div>
           </div>
         </div>
