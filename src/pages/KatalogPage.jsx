@@ -20,7 +20,7 @@ const badgeLabel = {
 
 const KatalogPage = () => {
   const [products, setProducts] = useState(fallbackKatalog);
-  const [activeCategory, setActiveCategory] = useState('All Collections');
+  const [activeCategory, setActiveCategory] = useState('Semua Layanan');
 
   useEffect(() => {
     let mounted = true;
@@ -41,10 +41,10 @@ const KatalogPage = () => {
 
   const categories = useMemo(() => {
     const names = products.map((item) => item.category?.name).filter(Boolean);
-    return ['All Collections', ...new Set(names)];
+    return ['Semua Layanan', ...new Set(names)];
   }, [products]);
 
-  const filtered = activeCategory === 'All Collections'
+  const filtered = activeCategory === 'Semua Layanan'
     ? products
     : products.filter((item) => item.category?.name === activeCategory);
 
@@ -53,9 +53,9 @@ const KatalogPage = () => {
       <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop mb-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="max-w-2xl">
-            <span className="text-primary font-label-sm tracking-widest uppercase mb-4 block">Curated Materials</span>
-            <h1 className="font-display-lg text-display-lg text-on-surface mb-6 leading-tight">The Soul of <br /><span className="italic font-normal">Interior Artistry</span></h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">Explore our exquisite collection of architectural surfaces, from handcrafted wallpanels to sustainable premium flooring, designed for the modern Indonesian home.</p>
+            <span className="text-primary font-label-sm tracking-widest uppercase mb-4 block">Layanan Kalatmaka</span>
+            <h1 className="font-display-lg text-display-lg text-on-surface mb-6 leading-tight">Renovasi Interior <br /><span className="italic font-normal">Lebih Praktis</span></h1>
+            <p className="font-body-lg text-body-lg text-on-surface-variant">Pilih layanan plafon UPVC, wallpanel PVC/WPC, SPC flooring, dan gorden custom sesuai kebutuhan rumah Anda.</p>
           </div>
         </div>
       </section>
@@ -98,7 +98,7 @@ const KatalogPage = () => {
                   <h3 className="font-headline-md text-headline-md text-on-surface leading-tight">{product.title}</h3>
                   <span className="material-symbols-outlined text-primary">arrow_forward</span>
                 </div>
-                <p className="font-body-md text-on-surface-variant mb-4">{product.category?.name || 'Interior Material'}</p>
+                <p className="font-body-md text-on-surface-variant mb-4">{product.category?.name || 'Layanan Interior'}</p>
                 <div className="flex items-center justify-between mt-auto">
                   <p className="font-headline-md text-primary font-bold">{formatPrice(product.price)}</p>
                   <span className="flex items-center justify-center bg-[#25D366] text-white p-3 rounded-full">

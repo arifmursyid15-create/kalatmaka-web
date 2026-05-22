@@ -24,10 +24,11 @@ const PortfolioSection = ({ portfolios = [] }) => {
       <div className="px-margin-desktop max-w-container-max mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div className="max-w-2xl">
-            <span className="text-primary font-label-sm text-label-sm tracking-widest uppercase mb-4 block">Our Portfolio</span>
-            <h2 className="font-headline-lg text-headline-lg text-on-surface">Gallery of Artistic Sanctuaries</h2>
+            <span className="text-primary font-label-sm text-label-sm tracking-widest uppercase mb-4 block">Portofolio</span>
+            <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">Portofolio Pengerjaan</h2>
+            <p className="text-on-surface-variant font-body-lg">Beberapa dokumentasi hasil pengerjaan Kalatmaka akan ditampilkan sebagai referensi model, material, dan finishing.</p>
           </div>
-          <Link to="/portfolio" className="text-primary border-b-2 border-primary font-semibold pb-1 hover:pb-2 transition-all">View All Works</Link>
+          <Link to="/portfolio" className="text-primary border-b-2 border-primary font-semibold pb-1 hover:pb-2 transition-all">Lihat Portofolio</Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-8">

@@ -8,7 +8,7 @@ const TestimonialSection = ({ testimonials = [] }) => {
       <div className="px-margin-desktop max-w-container-max mx-auto flex flex-col items-center text-center">
         <span className="material-symbols-outlined text-on-primary text-6xl mb-8 opacity-40">format_quote</span>
         <p className="font-sans text-xl md:text-headline-lg leading-relaxed text-on-primary mb-12 max-w-4xl italic">
-          "{testimonial.message || 'Kalatmaka transformed our Jakarta home into a serene sanctuary. Their attention to material quality and the subtle interplay of light and wood is simply unmatched.'}"
+          "{testimonial.message || 'Proses konsultasinya jelas, pilihan material dibantu, dan hasil pemasangan rapi. Kami jadi tidak perlu repot mencari bahan dan tukang sendiri.'}"
         </p>
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-full bg-secondary-container overflow-hidden">
@@ -20,7 +20,7 @@ const TestimonialSection = ({ testimonials = [] }) => {
           </div>
           <div className="text-left">
             <h5 className="font-bold text-on-primary text-body-lg">{testimonial.name || 'Aditya Pratama'}</h5>
-            <p className="text-on-primary/70 text-label-sm uppercase tracking-widest">{testimonial.rating || 5}/5 Client Rating</p>
+            <p className="text-on-primary/70 text-label-sm uppercase tracking-widest">{testimonial.rating || 5}/5 Penilaian Pelanggan</p>
           </div>
         </div>
       </div>

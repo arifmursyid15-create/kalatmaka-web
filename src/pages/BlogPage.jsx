@@ -14,7 +14,7 @@ const formatDate = (date) => {
 
 const BlogPage = () => {
   const [articles, setArticles] = useState(fallbackBlogs);
-  const [activeCategory, setActiveCategory] = useState('All Articles');
+  const [activeCategory, setActiveCategory] = useState('Semua Artikel');
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -36,11 +36,11 @@ const BlogPage = () => {
 
   const categories = useMemo(() => {
     const names = articles.map((item) => item.category?.name).filter(Boolean);
-    return ['All Articles', ...new Set(names)];
+    return ['Semua Artikel', ...new Set(names)];
   }, [articles]);
 
   const filtered = articles.filter((article) => {
-    const categoryMatch = activeCategory === 'All Articles' || article.category?.name === activeCategory;
+    const categoryMatch = activeCategory === 'Semua Artikel' || article.category?.name === activeCategory;
     const keyword = search.trim().toLowerCase();
     const searchMatch = !keyword || article.title?.toLowerCase().includes(keyword) || article.content?.toLowerCase().includes(keyword);
     return categoryMatch && searchMatch;
@@ -68,7 +68,7 @@ const BlogPage = () => {
                 <div className="flex items-center gap-4 text-white/90 font-body-md text-body-md">
                   <span>{formatDate(featured.created_at)}</span>
                   <span className="w-1 h-1 bg-white/50 rounded-full"></span>
-                  <span>Read article</span>
+                  <span>Baca artikel</span>
                 </div>
               </div>
             </div>
@@ -98,7 +98,7 @@ const BlogPage = () => {
           <input
             className="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-full focus:ring-2 focus:ring-primary/20 text-body-md placeholder:text-on-surface-variant/50"
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search the journal..."
+            placeholder="Cari artikel..."
             type="text"
             value={search}
           />
@@ -120,7 +120,7 @@ const BlogPage = () => {
                   </div>
                   <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4 group-hover:text-primary transition-colors">{topCards[0].title}</h2>
                   <p className="text-on-surface-variant font-body-md text-body-md line-clamp-3 mb-6">{topCards[0].meta_description || topCards[0].content}</p>
-                  <span className="font-label-sm text-primary mt-auto uppercase tracking-widest">Read More</span>
+                  <span className="font-label-sm text-primary mt-auto uppercase tracking-widest">Baca Selengkapnya</span>
                 </div>
               </Link>
             </article>
@@ -146,18 +146,18 @@ const BlogPage = () => {
 
       <section className="bg-primary-container/20 py-24 mb-section-gap">
         <div className="px-margin-mobile md:px-margin-desktop max-w-3xl mx-auto text-center">
-          <h2 className="font-headline-lg text-headline-lg text-primary mb-6">Join the Kalatmaka Journal</h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant mb-10">Weekly insights into the world of luxury design, art, and the architecture of living well.</p>
+          <h2 className="font-headline-lg text-headline-lg text-primary mb-6">Butuh Rekomendasi Material?</h2>
+          <p className="font-body-lg text-body-lg text-on-surface-variant mb-10">Konsultasikan kebutuhan plafon UPVC, wallpanel, SPC flooring, atau gorden custom langsung melalui WhatsApp.</p>
           <form className="flex flex-col sm:flex-row gap-4" onSubmit={(event) => event.preventDefault()}>
-            <input className="flex-grow px-8 py-4 rounded-full bg-surface border-none focus:ring-2 focus:ring-primary/20 text-body-md" placeholder="Your email address" type="email" />
-            <button className="bg-primary text-on-primary px-10 py-4 rounded-full font-body-md text-body-md font-semibold hover:scale-105 active:scale-95 transition-all" type="submit">Subscribe</button>
+            <input className="flex-grow px-8 py-4 rounded-full bg-surface border-none focus:ring-2 focus:ring-primary/20 text-body-md" placeholder="Tulis kebutuhan ruangan Anda" type="text" />
+            <a className="bg-primary text-on-primary px-10 py-4 rounded-full font-body-md text-body-md font-semibold hover:scale-105 active:scale-95 transition-all" href="https://wa.me/6285128025154" target="_blank" rel="noreferrer">Chat WhatsApp</a>
           </form>
         </div>
       </section>
 
       {moreArticles.length > 0 && (
         <section className="px-margin-desktop max-w-7xl mx-auto mb-section-gap">
-          <h2 className="font-headline-lg text-headline-lg mb-12">More to Explore</h2>
+          <h2 className="font-headline-lg text-headline-lg mb-12">Artikel Lainnya</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {moreArticles.map((article) => (
               <Link className="group" key={article.id} to={`/blog/${article.slug}`}>

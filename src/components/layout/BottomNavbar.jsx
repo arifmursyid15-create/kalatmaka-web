@@ -6,8 +6,8 @@ const BottomNavbar = () => {
 
   const navItems = [
     { name: 'Home', path: '/', icon: 'home', fill: true },
-    { name: 'Gallery', path: '/portfolio', icon: 'grid_view' },
-    { name: 'Service', path: '/katalog', icon: 'shopping_bag' },
+    { name: 'Portofolio', path: '/portfolio', icon: 'grid_view' },
+    { name: 'Layanan', path: '/katalog', icon: 'shopping_bag' },
     { name: 'Blog', path: '/blog', icon: 'auto_stories' },
   ];
 

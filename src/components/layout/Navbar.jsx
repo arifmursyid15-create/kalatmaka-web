@@ -6,14 +6,12 @@ const fallbackLogo = 'https://lh3.googleusercontent.com/aida/ADBb0ugy9bXXWWqqqLl
 const Navbar = ({ settings }) => {
   const location = useLocation();
   const logo = settings?.dark_logo_url || fallbackLogo;
-  const consultLink = settings?.consult_link || '/kontak';
-
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Gallery', path: '/portfolio' },
-    { name: 'Services', path: '/katalog' }, // Adjusting to existing routes
+    { name: 'Beranda', path: '/' },
+    { name: 'Portofolio', path: '/portfolio' },
+    { name: 'Layanan', path: '/katalog' },
     { name: 'Blog', path: '/blog' },
-    { name: 'About', path: '/tentang' },
+    { name: 'Tentang', path: '/tentang' },
   ];
 
   return (
@@ -46,12 +44,12 @@ const Navbar = ({ settings }) => {
             );
           })}
         </nav>
-        <Link to={consultLink} className="hidden md:block bg-primary-container text-white px-8 py-3 rounded-full font-label-sm text-label-sm uppercase tracking-widest hover:bg-primary transition-all">
-          Consultation
-        </Link>
-        <Link to={consultLink} className="md:hidden bg-primary-container text-white px-5 py-2 rounded-full font-label-sm text-xs uppercase tracking-widest hover:bg-primary transition-all">
-          Contact
-        </Link>
+        <a href={settings?.whatsapp_link || 'https://wa.me/6285128025154'} className="hidden md:block bg-primary-container text-white px-8 py-3 rounded-full font-label-sm text-label-sm uppercase tracking-widest hover:bg-primary transition-all" target="_blank" rel="noreferrer">
+          Chat WhatsApp
+        </a>
+        <a href={settings?.whatsapp_link || 'https://wa.me/6285128025154'} className="md:hidden bg-primary-container text-white px-5 py-2 rounded-full font-label-sm text-xs uppercase tracking-widest hover:bg-primary transition-all" target="_blank" rel="noreferrer">
+          Chat
+        </a>
       </div>
     </header>
   );

@@ -22,6 +22,7 @@ const MainLayout = () => {
       <Helmet>
         <title>{settings.meta_title || settings.studio_name}</title>
         <meta name="description" content={settings.meta_description || ''} />
+        <meta name="keywords" content="jasa plafon UPVC Sidoarjo, jasa wallpanel Sidoarjo, jasa SPC flooring Sidoarjo, jasa gorden custom Sidoarjo, jasa interior rumah Sidoarjo, Kalatmaka Interior" />
         {settings.favicon_url && <link rel="icon" href={settings.favicon_url} />}
       </Helmet>
 

@@ -5,7 +5,7 @@ const CatalogPreviewSection = ({ products = [] }) => {
   return (
     <section className="py-section-gap px-margin-desktop max-w-container-max mx-auto">
       <div className="flex items-center justify-between mb-12">
-        <h2 className="font-headline-lg text-headline-lg">Signature Materials</h2>
+        <h2 className="font-headline-lg text-headline-lg">Layanan & Material Utama</h2>
         <div className="flex gap-4">
           <button className="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-white transition-all">
             <span className="material-symbols-outlined">chevron_left</span>
@@ -26,7 +26,7 @@ const CatalogPreviewSection = ({ products = [] }) => {
               />
             </div>
             <h4 className="font-headline-md text-primary mb-1">{product.title}</h4>
-            <p className="text-on-surface-variant font-label-sm tracking-wide uppercase">{product.category?.name || 'Signature Material'}</p>
+            <p className="text-on-surface-variant font-label-sm tracking-wide uppercase">{product.category?.name || 'Layanan Interior'}</p>
           </Link>
         ))}
       </div>

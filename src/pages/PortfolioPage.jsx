@@ -5,7 +5,7 @@ import { fallbackPortfolios } from '../data/fallbackContent';
 
 const PortfolioPage = () => {
   const [portfolios, setPortfolios] = useState(fallbackPortfolios);
-  const [activeLocation, setActiveLocation] = useState('All Works');
+  const [activeLocation, setActiveLocation] = useState('Semua Proyek');
 
   useEffect(() => {
     let mounted = true;
@@ -26,19 +26,19 @@ const PortfolioPage = () => {
 
   const locations = useMemo(() => {
     const names = portfolios.map((item) => item.location).filter(Boolean);
-    return ['All Works', ...new Set(names)];
+    return ['Semua Proyek', ...new Set(names)];
   }, [portfolios]);
 
-  const filtered = activeLocation === 'All Works'
+  const filtered = activeLocation === 'Semua Proyek'
     ? portfolios
     : portfolios.filter((item) => item.location === activeLocation);
 
   return (
     <>
       <header className="pt-12 pb-20 px-margin-desktop max-w-7xl mx-auto text-center">
-        <h1 className="font-display text-display-lg text-primary mb-6">Curated Narratives</h1>
+        <h1 className="font-display text-display-lg text-primary mb-6">Portofolio Pengerjaan</h1>
         <p className="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-          Exploring the intersection of soul and space. Our portfolio is a testament to bespoke Indonesian luxury, where traditional warmth meets contemporary architectural precision.
+          Beberapa dokumentasi hasil pengerjaan Kalatmaka akan ditampilkan sebagai referensi model, material, dan finishing.
         </p>
       </header>
 
@@ -73,7 +73,7 @@ const PortfolioPage = () => {
               <div className="absolute inset-0 bg-primary-container/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-center items-center text-center px-6 backdrop-blur-[2px]">
                 <span className="text-on-primary-container font-display text-2xl mb-2">{project.title}</span>
                 {project.location && <span className="text-on-primary-container/80 font-body text-sm mb-4">{project.location}</span>}
-                <span className="text-on-primary-container font-label text-xs border border-on-primary-container/30 px-5 py-1.5 rounded-full tracking-widest uppercase">View Project</span>
+                <span className="text-on-primary-container font-label text-xs border border-on-primary-container/30 px-5 py-1.5 rounded-full tracking-widest uppercase">Lihat Detail</span>
               </div>
             </Link>
           ))}

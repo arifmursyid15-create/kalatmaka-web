@@ -56,20 +56,20 @@ const KatalogDetailPage = () => {
         </div>
 
         <div className="lg:sticky lg:top-32">
-          <Link className="font-label-sm uppercase tracking-widest text-primary hover:underline" to="/katalog">Back to Catalog</Link>
-          <p className="text-primary font-label-sm tracking-widest uppercase mt-8 mb-4">{product.category?.name || 'Interior Material'}</p>
+          <Link className="font-label-sm uppercase tracking-widest text-primary hover:underline" to="/katalog">Kembali ke Layanan</Link>
+          <p className="text-primary font-label-sm tracking-widest uppercase mt-8 mb-4">{product.category?.name || 'Layanan Interior'}</p>
           <h1 className="font-display-lg text-display-lg text-on-surface mb-6">{product.title}</h1>
           <p className="font-headline-md text-primary font-bold mb-8">{formatPrice(product.price)}</p>
           <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-10">{product.description}</p>
           {product.spesifikasi && (
             <div className="bg-surface-container-low rounded-3xl p-8 mb-10">
-              <h2 className="font-headline-md text-headline-md text-on-surface mb-4">Specification</h2>
+              <h2 className="font-headline-md text-headline-md text-on-surface mb-4">Spesifikasi</h2>
               <p className="font-body-md text-on-surface-variant leading-relaxed whitespace-pre-line">{product.spesifikasi}</p>
             </div>
           )}
           <a className="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white px-10 py-5 rounded-full font-label-sm uppercase tracking-widest hover:scale-105 active:scale-95 transition-all" href={consultLink} rel="noreferrer" target={consultLink.startsWith('http') ? '_blank' : undefined}>
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>chat</span>
-            Ask via WhatsApp
+            Chat WhatsApp Sekarang
           </a>
         </div>
       </section>
